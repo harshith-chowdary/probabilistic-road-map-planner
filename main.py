@@ -9,6 +9,15 @@ import random
 from scipy.spatial.distance import cdist
 from sklearn.neighbors import NearestNeighbors
 
+print("***** Probabilistic Road Map Planner *****")
+print("Enter the grid dimensions of your space :", end = " ")
+[grid_x, grid_y] = list(map(int, input().split()))
+grid_x = abs(grid_x)
+grid_y = abs(grid_y)
+
+print("Do you want to include new obstacles other than those in Obstacles.png ? (0/1)", end = " ")
+op = int(input())
+
 obs1=[[5,11],[14,5],[11,20]]
 obs2=[[12,29],[15,31],[15,34],[12,34]]
 obs3=[[25,9],[25,20],[32,15],[35,6]]
@@ -50,8 +59,8 @@ def nodes_plotter(n):
     gx=[]
     gy=[]
     while len<n:
-        x=random.randint(0,60)
-        y=random.randint(0,40)
+        x=random.randint(0,grid_x)
+        y=random.randint(0,grid_y)
         xd=random.randint(0,9)/10
         yd=random.randint(0,9)/10
         node=[x+xd,y+yd]
@@ -224,8 +233,15 @@ draw_poly(obs3)
 draw_poly(obs4)
 #plt.show()
 
-N=1000
-K=10
+# N=1000
+# K=5
+
+print("Enter the preferred number of nodes and connections (0 0 for using default): ", end = " ")
+[N, K] = list(map(int, input().split()))
+
+if(N and K==0):
+    N = 1000
+    K = 10
 
 nodes_list=nodes_plotter(N)
 
